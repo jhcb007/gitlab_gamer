@@ -14,7 +14,8 @@ class Projects_model extends CI_Model
         $filters = array(
             'order_by' => 'name',
             'sort' => 'asc',
-            'statistics' => 'true'
+            'statistics' => 'true',
+            'per_page' => 100
         );
         return servidor_http($this->url_base, $filters);
     }
