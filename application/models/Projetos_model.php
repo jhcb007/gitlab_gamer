@@ -15,20 +15,12 @@ class Projetos_model extends CI_Model
         parent::__construct();
     }
 
-    public function get($ent_codigo, $all = false)
+    public function list_projetos($ativo = 'S')
     {
-        $sec_ativo = " and s.sec_ativo = 'S'";
-        if ($all):
-            $sec_ativo = "";
-        endif;
         $sql = "select
-                s.sec_codigo,
-                s.sec_nome,
-                s.sec_ativo,
-                s.sec_order
-                from {$this->tabela} s 
-                where s.ent_codigo = {$ent_codigo} {$sec_ativo}
-                order by s.sec_ativo desc, s.sec_order, s.sec_nome";
+                *
+                from projects p
+                where p.pro_ativo = '{$ativo}'";
         $query = $this->db->query($sql);
         return $query->result_object();
     }
@@ -46,7 +38,6 @@ class Projetos_model extends CI_Model
                 'pro_visibility' => $dados->visibility,
                 'pro_data' => $dados->created_at
             );
-            $this->db->set('pro_codigo', $dados->id);
             return ($this->db->insert($this->tabela, $data));
         }
     }

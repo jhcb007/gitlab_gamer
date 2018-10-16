@@ -44,9 +44,22 @@ class Projects_model extends CI_Model
         return servidor_http($url, $filters);
     }
 
-    public function list_projects_commits($id)
+    public function list_projects_commits($id, $data, $page = 1)
     {
         $url = "{$this->url_base}/{$id}/repository/commits";
+        $filters = array(
+            'all' => true,
+            'with_stats' => true,
+            'per_page' => 100,
+            'page' => $page,
+            'since' => $data
+        );
+        return servidor_http($url, $filters);
+    }
+
+    public function get_commit($id, $sha)
+    {
+        $url = "{$this->url_base}/{$id}/repository/commits/{$sha}";
         $filters = array(
             'per_page' => 100
         );

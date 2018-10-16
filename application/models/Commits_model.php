@@ -34,31 +34,36 @@ class Commits_model extends CI_Model
         return $query->result_object();
     }
 
-    function set($dados,$pro_codigo)
+    function get_ultimo_commit($pro_codigo)
     {
-        $data = array(
-            'com_codigo' => $dados->id,
-            'pro_codigo' => $pro_codigo,
-            'dev_name' => $dados->author_name,
-            'com_data' => $dados->created_at,
-            'com_title' => $dados->title,
-            'com_message' => $dados->message
-        );
-        return ($this->db->replace($this->tabela, $data));
+        $sql = "select
+                max(c.com_data) as ultimo_commit
+                from commits c
+                where c.pro_codigo = {$pro_codigo}";
+        $query = $this->db->query($sql);
+        return $query->row();
     }
 
-    function put($dados)
+    function set($dados, $pro_codigo)
     {
-        $data = array(
-            'com_codigo' => $dados->com_codigo,
-            'pro_codigo' => $dados->pro_codigo,
-            'dev_name' => $dados->dev_name,
-            'com_data' => $dados->com_data,
-            'com_additions' => $dados->com_additions,
-            'com_deletions' => $dados->com_deletions,
-            'com_total' => $dados->com_total
-        );
-        $this->db->where('com_codigo', $dados->com_codigo);
-        return ($this->db->update($this->tabela, $data));
+        $this->db->where('com_codigo', $dados->id);
+        $q = $this->db->get($this->tabela);
+
+        if ($q->num_rows() > 0) {
+            return;
+        } else {
+            $data = array(
+                'com_codigo' => $dados->id,
+                'pro_codigo' => $pro_codigo,
+                'dev_email' => $dados->committer_email,
+                'com_title' => $dados->title,
+                'com_message' => $dados->message,
+                'com_data' => $dados->committed_date,
+                'com_additions' => $dados->stats->additions,
+                'com_deletions' => $dados->stats->deletions,
+                'com_total' => $dados->stats->total
+            );
+            return ($this->db->insert($this->tabela, $data));
+        }
     }
 }

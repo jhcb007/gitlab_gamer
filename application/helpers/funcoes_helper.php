@@ -46,7 +46,7 @@ if (!function_exists('servidor_http')) {
         foreach ($headers_array as $value) {
             if (substr($value, 0, (strlen($value) * -1) + 1) === 'X'):
                 $valor = explode(":", $value);
-                $array_header[] = array($valor[0] => $valor[1]);
+                $array_header[$valor[0]] = $valor[1];
             endif;
         }
 

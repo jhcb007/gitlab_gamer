@@ -47,7 +47,6 @@ class Devs_model extends CI_Model
                 'dev_name' => $dados->name,
                 'dev_email' => $dados->email
             );
-            $this->db->set('dev_name', $dados->name);
             return ($this->db->insert($this->tabela, $data));
         }
     }
