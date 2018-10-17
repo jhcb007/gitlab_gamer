@@ -6,7 +6,7 @@ class Admin extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('gitlab/Projetos_model', 'pro');
+        $this->load->model('gitlab/Projects_model', 'pro');
     }
 
     public function index()
