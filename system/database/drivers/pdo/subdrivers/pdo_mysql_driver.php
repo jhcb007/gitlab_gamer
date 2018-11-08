@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * PDO MySQL Database Adapter Class
  *
- * Note: _DB is an extender class that the app controller
+ * Note: _DB is an extender class that the app_painel controller
  * creates dynamically based on whether the query builder
  * class is being used or not.
  *

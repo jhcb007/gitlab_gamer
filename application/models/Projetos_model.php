@@ -15,6 +15,33 @@ class Projetos_model extends CI_Model
         parent::__construct();
     }
 
+    public function list_ranking($pro_codigo)
+    {
+        $sql = "select
+                d.dev_name,
+                d.dev_avatar,
+                sum(c.com_additions) as total_additions,
+                sum(c.com_deletions) as total_deletions,
+                sum(c.com_total) as total_total
+                from commits c
+                join devs d on d.dev_email = c.dev_email
+                where c.pro_codigo = {$pro_codigo}
+                group by d.dev_name, d.dev_avatar
+                order by total_total desc";
+        $query = $this->db->query($sql);
+        return $query->result_object();
+    }
+
+    public function get_projeto($pro_codigo)
+    {
+        $sql = "select
+                *
+                from projects p
+                where p.pro_codigo = {$pro_codigo}";
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+
     public function list_projetos($ativo = 'S')
     {
         $sql = "select
@@ -30,7 +57,12 @@ class Projetos_model extends CI_Model
         $this->db->where('pro_codigo', $dados->id);
         $q = $this->db->get($this->tabela);
         if ($q->num_rows() > 0) {
-            return;
+            $data = array(
+                'pro_peso' => $dados->pro_peso,
+                'pro_ativo' => $dados->pro_ativo
+            );
+            $this->db->where('pro_codigo', $dados->id);
+            return ($this->db->update($this->tabela, $data));
         } else {
             $data = array(
                 'pro_codigo' => soNumeros($dados->id),

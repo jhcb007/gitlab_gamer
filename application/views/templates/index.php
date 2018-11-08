@@ -16,8 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <h5 class="my-0 mr-md-auto font-weight-normal">GitLab Gamer</h5>
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#!/projetos">Projetos</a>
+        <a class="p-2 text-dark" href="#!/configuracao">Configurações</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#">Sair</a>
 </div>
 
 <div class="container-fluid">

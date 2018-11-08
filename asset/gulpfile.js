@@ -6,7 +6,8 @@ var js_lib = [
     './bower_components/angular/angular.min.js',
     './bower_components/ng-filters/dist/ng-filters.js',
     './bower_components/angular-route/angular-route.min.js',
-    './bower_components/angular-resource/angular-resource.min.js'
+    './bower_components/angular-resource/angular-resource.min.js',
+    './plugins/bootstrap-notify.js'
 ];
 
 var js = [
@@ -14,6 +15,19 @@ var js = [
     './src/module/*',
     './src/app.js',
     './src/config.js'
+];
+
+var js_painel = [
+    './bower_components/jquery/dist/jquery.min.js',
+    './bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
+    './node_modules/bootstrap/dist/js/bootstrap.min.js',
+    './bower_components/angular/angular.min.js',
+    './bower_components/ng-filters/dist/ng-filters.js',
+    './bower_components/angular-resource/angular-resource.min.js',
+    './src/painel/servicePainel.js',
+    './src/painel/moduloPainel.js',
+    './src/painel/app_painel.js',
+    './src/painel/config_painel.js',
 ];
 
 var css = [
@@ -46,6 +60,13 @@ gulp.task('lib', function () {
 gulp.task('app', function () {
     gulp.src(js)                        // Arquivos que serão carregados, veja variável 'js' no início
         .pipe(concat('app.min.js'))     // Arquivo único de saída
+        .pipe(uglify({mangle: false}))  // Transforma para formato ilegível
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('painel', function () {
+    gulp.src(js_painel)                        // Arquivos que serão carregados, veja variável 'js' no início
+        .pipe(concat('painel.min.js'))     // Arquivo único de saída
         .pipe(uglify({mangle: false}))  // Transforma para formato ilegível
         .pipe(gulp.dest('./dist/'));
 });

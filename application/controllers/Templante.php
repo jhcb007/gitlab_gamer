@@ -17,6 +17,11 @@ class Templante extends CI_Controller
     {
         $this->load->view('templates/projeto');
     }
+
+    public function configuracao()
+    {
+        $this->load->view('templates/configuracao');
+    }
 }
 /*
 https://gitlab.com/api/v4/projects/6337036/repository/commits?private_token=6abpZCaGrwLJphicE4eU&with_stats=true&path=application/controllers&since=2017-04-30T20:46:36.000Z

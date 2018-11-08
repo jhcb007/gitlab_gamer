@@ -11,30 +11,72 @@ angular.module('moduloAdministrador', ['serviceProjects'])
 
 function ListProjetos($filter, $scope, ListProjects) {
     $scope.list_projetos = [];
-
     $scope.pageTitle = 'Projetos';
-
     ListProjects.query({}, function (resul) {
         $scope.list_projetos = resul.conteudo;
     });
 }
 
-function ProjetoCtrl($filter, $scope, GetProject) {
+function ProjetoCtrl($filter, $scope, $routeParams, GetProject) {
     $scope.contribuicao = [];
     $scope.devs = [];
     $scope.projeto = {};
     $scope.repositorios = [];
+    $scope.dados_projeto = {};
 
-    GetProject.query({id: 52}, function (resul) {
+    GetProject.query({id: $routeParams.id}, function (resul) {
         $scope.contribuicao = resul.contribuicao.conteudo;
         $scope.devs = resul.devs.conteudo;
         $scope.projeto = resul.projeto.conteudo;
-        $scope.repositorios = resul.repositorios.conteudo;
+        $scope.dados_projeto = resul.dados_projeto;
+        $scope.dados_projeto.ativo_exibir = ($scope.dados_projeto.pro_ativo === 'S');
         $scope.pageTitle = $scope.projeto.name;
-        console.log(resul);
     });
+
+    $scope.salva_definicao = function () {
+        if ($scope.dados_projeto.ativo_exibir) {
+            $scope.dados_projeto.pro_ativo = 'S';
+        } else {
+            $scope.dados_projeto.pro_ativo = 'N';
+        }
+        $scope.dados_projeto.id = $scope.dados_projeto.pro_codigo;
+        GetProject.save({}, $scope.dados_projeto, function (resul) {
+            if (resul.status) {
+                $.notify({
+                    title: '<strong>GitLab Gamer</strong>',
+                    message: resul.mensagem
+                }, {
+                    type: 'success',
+                    allow_dismiss: true,
+                    delay: 4000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'left'
+                    }
+                });
+            } else {
+                $.notify({
+                    title: '<strong>GitLab Gamer</strong>',
+                    message: resul.mensagem
+                }, {
+                    type: 'danger',
+                    allow_dismiss: true,
+                    delay: 4000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'left'
+                    }
+                });
+            }
+        });
+    };
+
 }
 
 function Configuracao($filter, $scope) {
-    $scope.pageTitle = 'Minhas Viagens';
+    $scope.pageTitle = 'Configurações';
+    $scope.configuracao = {
+        conf_tempo_projeto: 1,
+        conf_tempo_sync: 60
+    };
 }

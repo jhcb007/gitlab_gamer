@@ -4,6 +4,9 @@
 angular.module('serviceProjects', ['ngResource'])
     .factory('GetProject', function ($resource, config) {
         return $resource(config.baseURL + 'projeto/:id', {}, {
+            save: {
+                method: 'POST'
+            },
             query: {
                 method: 'GET',
                 params: {id: 'id'},

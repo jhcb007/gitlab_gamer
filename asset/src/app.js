@@ -1,11 +1,15 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
+// Declare app_painel level module which depends on views, and components
 var app = angular.module('Gitlabgamer', ['ngRoute', 'angular-filters', 'moduloAdministrador']);
 
 app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
     $routeProvider
+        .when('/configuracao', {
+            templateUrl: '../index.php/templante/configuracao',
+            controller: 'Configuracao'
+        })
         .when('/projetos', {
             templateUrl: '../index.php/templante/list_projetos',
             controller: 'ListProjetos'
@@ -20,27 +24,6 @@ app.config(['$locationProvider', '$routeProvider', function ($locationProvider, 
 }]);
 
 app.run(function (config) {
-
-    //Inicializa
-    /*
-        ListProjects.query({user_id: '2290935'}, function (resul) {
-            console.log(resul);
-        });
-
-        ListProjectsUsers.query({id: '6337036'}, function (resul) {
-            console.log(resul);
-        });
-
-        //Pasta Raiz
-        ListProjectsRepository.query({id: '6337036'}, function (resul) {
-            console.log(resul);
-        });
-
-        //Pasta Raiz/application
-        ListProjectsRepository.query({id: '6337036', path: 'application/controllers'}, function (resul) {
-            console.log(resul);
-        });
-    */
 });
 
 app.directive('listRepositorio', function ($compile) {

@@ -14,20 +14,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-4">
                 <div class="card">
                     <div class="card-header">
-                        Definições
+                        Definições do Projeto
                     </div>
                     <div class="col-12">
                         <form class="mt-1 mb-2">
                             <div class="form-check mt-2 mb-2">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Ativo (Exibir no Painel)</label>
+                                <input type="checkbox" class="form-check-input" ng-model="dados_projeto.ativo_exibir" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Exibir no Painel</label>
                             </div>
                             <div class="form-group">
                                 <label for="peso_incluida">Peso das linhas incluídas e excluídas</label>
-                                <input type="number" min="1" max="100" required class="form-control" id="peso_incluida" aria-describedby="emailHelp" placeholder="Informe o valor">
+                                <input type="text" min="1" max="100" required class="form-control" ng-model="dados_projeto.pro_peso" id="peso_incluida" aria-describedby="emailHelp" placeholder="Informe o valor">
                                 <small class="form-text text-muted">Valor entre 1 a 100</small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            <button ng-disabled="!dados_projeto.pro_peso" type="button" ng-click="salva_definicao()" class="btn btn-primary">Salvar</button>
                         </form>
                     </div>
                 </div>

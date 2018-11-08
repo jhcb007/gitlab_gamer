@@ -350,7 +350,7 @@ if ( ! is_php('5.4'))
 
 /*
  * ------------------------------------------------------
- *  Load the app controller and local controller
+ *  Load the app_painel controller and local controller
  * ------------------------------------------------------
  *
  */
@@ -393,7 +393,7 @@ if ( ! is_php('5.4'))
  *
  *  We handle all of these as a 404 error.
  *
- *  Furthermore, none of the methods in the app controller
+ *  Furthermore, none of the methods in the app_painel controller
  *  or the loader class can be called via the URI, nor can
  *  controller methods that begin with an underscore.
  */
